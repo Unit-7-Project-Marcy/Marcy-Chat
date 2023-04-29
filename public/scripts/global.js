@@ -41,12 +41,15 @@ const fetchLoggedInUser = async () => {
 const updateUsernameHandler = async (form) => {
   const formData = new FormData(form);
   const username = formData.get('username');
+  console.log(form.dataset)
+
   if (!username) return alert('Username is required');
 
   const url = `/api/users/${form.dataset.userId}`;
   const options = getFetchOptions({ username }, 'PATCH');
 
   const [response, err] = await handleFetch(url, options);
+
   return [response, err];
 };
 
@@ -60,9 +63,8 @@ const logOutHandler = async () => {
 // Nav Helper
 const setNav = (hasLoggedInUser) => {
   const loggedOutNavHtml = `<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="./create.html">Sign Up</a></li>
-    <li><a href="./login.html">Login</a></li>
+    <li><a class="nav-link" href="./create.html">Sign Up</a></li>
+    <li><a class="nav-link" href="./login.html">Login</a></li>
   </ul>`;
 
   const loggedInNavHtml = `<ul>

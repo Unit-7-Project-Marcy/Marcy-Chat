@@ -55,11 +55,11 @@ const main = async () => {
 
     event.target.reset();
   });
-
-  updateUsernameForm.dataset.userId = user.id;
+  console.log(updateUsernameForm.dataset,)
+  updateUsernameForm.dataset.userId =  user.user.id;
 
   window.setNav(!!user);
-  renderUsername(user.username);
+  renderUsername(user.user.username);
 };
 
 main();

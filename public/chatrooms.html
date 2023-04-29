@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./scripts/global.js"></script>
+    <title>Chatrooms</title>
+    <script src="./scripts/global.js" defer></script>
     <script src="./scripts/chatRoomList.js" defer></script>
     <script src="https://kit.fontawesome.com/3232dc6896.js" crossorigin="anonymous"></script>
     <link
@@ -14,10 +14,35 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
     crossorigin="anonymous"
   />
+  <link href="./styles/index.css" rel="stylesheet">
+  <link href="./styles/style.css" rel="stylesheet">
+  <link href="styles/chatRoomList.css" rel="stylesheet">
 </head>
 <body style="height: 100vh;width: 100vw;">
-<main class="h-100 d-flex justify-content-center align-items-center flex-column">
-    <ul id="chatRooms" class="list-group">
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse d-flex justify-content-end"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav" id="main-nav"></div>
+      </div>
+    </div>
+  </nav>
+<main class="h-100 d-flex w-100 justify-content-center align-items-center">
+    <ul id="chatRooms" class="list-group glass h-75 w-50 d-flex justify-content-between p-3">
 
     </ul>
 </main>

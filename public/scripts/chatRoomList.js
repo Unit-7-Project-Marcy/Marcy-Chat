@@ -1,27 +1,39 @@
 const chatRoomslist = document.getElementById('chatRooms');
-
+console.log( document.querySelector('#main-nav'))
 const main = async() => {
 const user = await window.fetchLoggedInUser()
+window.setNav(user)
+
 console.log(user.user.id)
 let userid = user.user.id
 fetch('/api/listRoom')
 .then(response => response.json())
 .then(data => {
     data.forEach(elem => {
-        console.log(elem)
         const listElement = document.createElement('li')
-        listElement.classList.add('d-flex','flex-row')
+        listElement.style.border = "2px solid black"
+        listElement.style.padding = "5px"
+        listElement.classList.add('d-flex','flex-row','justify-content-between','align-items-center')
+        const div = document.createElement('div')
+        div.classList.add('d-flex', 'flex-column', 'align-items-end')
         const para = document.createElement('p')
         para.textContent = elem.name
+        para.style.margin = 0
         const users = document.createElement('ul')
         const user = document.createElement('li')
+        users.style.listStyle = "none"
         let unique = [...new Set(elem.users)]
-
+        if(unique.length > 0) {
         unique.forEach(elem => {
-            user.textContent = elem
+            user.textContent = `${elem} Users`
             users.append(user)
-        })
+        })} else {
+            user.textContent = `No Users`
+            users.append(user)
+        }
         const button = document.createElement('button')
+        button.style.border = '0'
+        button.style.backgroundColor = "transparent"
         button.innerHTML = `<i class="fa-solid fa-circle-plus" style="color: #99ad00;"></i>`
         button.addEventListener('click', () => {
             fetch('/api/joinRoom', {
@@ -37,8 +49,9 @@ fetch('/api/listRoom')
             window.location.href = `/chatroom.html?room_id=${elem.id}`
         })
         listElement.append(para)
-        listElement.append(button)
-        listElement.append(users)
+        div.append(button)
+        div.append(users)
+        listElement.append(div)
 
         chatRoomslist.append(listElement)
     })
