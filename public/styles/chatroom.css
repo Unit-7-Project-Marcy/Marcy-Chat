@@ -1,0 +1,31 @@
+#messages {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border-radius: 0.5rem;
+    word-wrap: break-word;
+  }
+  
+  /* .message {
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border-radius: 0.5rem;
+    max-width: 70%;
+    word-wrap: break-word;
+  } */
+  
+  .sent {
+    background-color: blue;
+    color: white;
+    align-self: flex-end;
+    margin-bottom: 0.25em;
+  }
+  
+  .received {
+    background-color: green;
+    color: white;
+    align-self: flex-start;
+    margin-bottom: 0.25em;
+    border-radius: 5%;
+  }
