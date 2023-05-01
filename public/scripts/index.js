@@ -23,6 +23,9 @@ if(!user) {
   <a href="./microphone.html"><button class="btn btn-primary" type="submit">Join Voice Chat</button></a>
   </div>
   <div class="button2 mx-3 my-3">
+  <a href="./chatrooms.html"><button class="btn btn-primary" type="submit">Chatrooms</button></a>
+  </div>
+  <div class="button2 mx-3 my-3">
   <a href="./user.html"><button class="btn btn-primary" type="submit">Profile</button></a>
   </div>
 </div>
