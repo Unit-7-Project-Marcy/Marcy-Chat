@@ -8,8 +8,9 @@ exports.up = (knex) => {
         table.string('messages').notNullable();
         table.uuid('room_id').references('id').inTable('chat_rooms');
         table.integer('user_id').unsigned().references('id').inTable('users');
-        table.date('time_created')
-      })
+        table.timestamp('time_created').defaultTo(knex.fn.now()); // change data type to TIMESTAMP
+        table.string('type')
+    })
 }
 
 /**

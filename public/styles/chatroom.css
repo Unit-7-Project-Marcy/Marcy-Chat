@@ -20,6 +20,14 @@
     color: white;
     align-self: flex-end;
     margin-bottom: 0.25em;
+    border-radius: 5%;
+
+  }
+
+  .sent-text {
+    color: gray;
+    align-self: flex-end;
+    margin-bottom: 0.25em;
   }
   
   .received {
@@ -28,4 +36,37 @@
     align-self: flex-start;
     margin-bottom: 0.25em;
     border-radius: 5%;
+  }
+
+  .received-text {
+    color: gray;
+    align-self: flex-start;
+    margin-bottom: 0.25em;
+    border-radius: 5%;
+  }
+
+  .ball {
+    position: fixed;
+    border-radius: 100%;
+    opacity: 0.7;
+    z-index: -9999;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+  }
+
+  .pressed {
+    background-color: #0062cc;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+    transform: translateY(2px);
   }

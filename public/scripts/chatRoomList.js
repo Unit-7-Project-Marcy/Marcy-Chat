@@ -9,16 +9,22 @@ let userid = user.user.id
 fetch('/api/listRoom')
 .then(response => response.json())
 .then(data => {
+    console.log(data)
     data.forEach(elem => {
         const listElement = document.createElement('li')
         listElement.style.border = "2px solid black"
         listElement.style.padding = "5px"
         listElement.classList.add('d-flex','flex-row','justify-content-between','align-items-center')
         const div = document.createElement('div')
+        const textDiv = document.createElement('div')
+        textDiv.classList.add('d-flex','flex-column','justify-content-between')
         div.classList.add('d-flex', 'flex-column', 'align-items-end')
         const para = document.createElement('p')
-        para.textContent = elem.name
+        para.textContent = `Room Name: ${elem.name}`
+        const desc = document.createElement('p')
+        desc.textContent = `Description: ${elem.description}`
         para.style.margin = 0
+        desc.style.margin = 0
         const users = document.createElement('ul')
         const user = document.createElement('li')
         users.style.listStyle = "none"
@@ -48,9 +54,11 @@ fetch('/api/listRoom')
             })
             window.location.href = `/chatroom.html?room_id=${elem.id}`
         })
-        listElement.append(para)
+        textDiv.append(para)
+        textDiv.append(desc)
         div.append(button)
         div.append(users)
+        listElement.append(textDiv)
         listElement.append(div)
 
         chatRoomslist.append(listElement)

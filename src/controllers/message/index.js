@@ -3,6 +3,7 @@ const messageHistory = require("./messageHistory")
 const createRoom = require("./createRoom")
 const joinRoom = require("./joinRoom")
 const listRoom = require("./listRooms")
+const sendImage = require('./saveImage')
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
     messageHistory,
     createRoom,
     joinRoom,
-    listRoom
+    listRoom,
+    sendImage
 }

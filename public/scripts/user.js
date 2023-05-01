@@ -7,9 +7,8 @@ const renderUsername = (username) => {
 
 const main = async () => {
   const user = await window.fetchLoggedInUser();
-  if (!user) return redirectToLogin();
-
   console.log(user)
+  if (!user.user) return redirectToLogin();
 
   const logoutForm = document.querySelector('#logout-form');
   const updateUsernameForm = document.querySelector('#username-form');
@@ -18,6 +17,7 @@ const main = async () => {
   const image = document.querySelector('img')
   image.style.width="300px"
   image.style.height="300px"
+  image.style.borderRadius="50%"
   if(user.user.profile_picture) {
   image.src = user.user.profile_picture
   } else {
