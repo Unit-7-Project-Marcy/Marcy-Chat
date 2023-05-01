@@ -1,7 +1,9 @@
 
-const main = async () => {
+const chatRoom = async () => {
   const messageUL = document.getElementById("messages");
   const fileInput = document.getElementById("siofu_input");
+
+
 
   const fileUploadBtn = document.getElementById("file-upload-btn");
   fileUploadBtn.addEventListener("click", () => {
@@ -37,13 +39,17 @@ const main = async () => {
   console.log(user);
   // make a GET request for message history
   const roomId = new URLSearchParams(window.location.search).get("room_id");
+  fetch('/api/findRoom/' + roomId).then(response => response.json()).then(data => {console.log(data)
+    const roomName = data[0].name
+    socket.emit('joinRoom', roomName);
+    document.getElementById("RoomName").textContent = roomName
+  })
   socket.emit("room id", roomId);
   if (user.user.profile_picture) {
     imageSrc = user.user.profile_picture;
   } else {
     imageSrc = `https://www.pngitem.com/pimgs/m/522-5220445_anonymous-profile-grey-person-sticker-glitch-empty-profile.png`;
   }
-  console.log(roomId);
   fetch(`/api/message-history?room_id=${roomId}`)
     .then((response) => response.json())
     .then((messages) => {
@@ -146,6 +152,23 @@ const main = async () => {
   const form = document.getElementById("form");
   const input = document.getElementById("input");
 
+  const handleEmojiSelect = (emoji) => {
+    input.value += emoji.native; // add the selected emoji to the form input
+    picker.style.display = 'none'; // hide the emoji picker
+  };
+
+  const pickerOptions = { onEmojiSelect: handleEmojiSelect, autoFocus: true,}
+  const picker = new EmojiMart.Picker(pickerOptions)
+  document.querySelector('#emoji-picker-container').append(picker)
+  picker.id = "emoji-picker"
+  picker.style.display = "none"
+  
+  document.getElementById('emojiButton').addEventListener('click', () => {
+    picker.style.display = picker.style.display === 'none' ? 'block' : 'none';
+  });
+  
+
+  
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (input.value) {
@@ -153,7 +176,8 @@ const main = async () => {
         text: input.value,
         senderId: user.user.id, // assume userId is defined somewhere
         time_created: new Date(),
-        username: user.user.username
+        username: user.user.username,
+        roomName: document.getElementById("RoomName").textContent,
       };
       socket.emit("chat message", message, roomId);
       input.value = "";
@@ -235,7 +259,7 @@ const main = async () => {
   });
 };
 
-main();
+chatRoom();
 
 // Some random colors
 const colors = ["#3CC157", "#2AA7FF", "#1B1B1B", "#FCBC0F", "#F85F36"];

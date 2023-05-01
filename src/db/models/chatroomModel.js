@@ -14,6 +14,16 @@ class chatrooms {
           }
     }
 
+    static async getChatroomName(id) {
+      try {
+          const rooms = await knex("chat_rooms").select().where('id',id);
+          return rooms;
+        } catch (err) {
+          console.error(err);
+          return null;
+        }
+  }
+
     static async newChatRoom(name,description) {
         try {
             const roomId = uuidv4();

@@ -5,7 +5,7 @@ const checkAuthentication = require('./middleware/check-authentication');
 
 
 // Import the message controller
-const messageController = require('./controllers/message');
+const chatRoomContoller = require('./controllers/chatrooms');
 
 const Router = express.Router();
 Router.use(addModels);
@@ -25,6 +25,7 @@ Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });
 });
 
+Router.get('/findRoom/:id', chatRoomContoller.findRoom)
 
 
 

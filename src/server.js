@@ -22,6 +22,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const socketsStatus = {};
+const chatRooms = {}; // object to keep track of connected clients in each chat room
 
 const app = express();
 app.use(cors());
@@ -63,10 +64,16 @@ io.on('connection', (socket) => {
 
 
   socket.on("disconnect", function () {
+    for (const roomName in chatRooms) {
+      if (chatRooms[roomName].has(socket)) {
+        chatRooms[roomName].delete(socket);
+        break;
+      }
+    }
     delete socketsStatus[socketId];
   });
 
-  console.log('A user connected',socket);
+  console.log('A user connected');
   const cookies = socket.handshake.headers.cookie.split(';');
   let userId;
 
@@ -88,10 +95,13 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
   });
 
-  socket.on('joinRoom', (roomName, callback) => {
-    socket.join(roomName);
+  socket.on('joinRoom', (roomName) => {
+    socket.join(roomName); // join the specified chat room
+    if (!chatRooms[roomName]) {
+      chatRooms[roomName] = new Set(); // create a new Set for this chat room if it doesn't exist
+    }
+    chatRooms[roomName].add(socket.id); // add the client to the Set of connected clients in this chat room
     console.log(`User ${socket.id} joined room ${roomName}`);
-    callback(`You joined room ${roomName}`);
   });
 
  // Listen for file uploads
@@ -110,10 +120,12 @@ io.on('connection', (socket) => {
    console.log(result)
  });
 
-  socket.on('chat message', async (msg, id, type) => {
+  socket.on("chat message", async (msg, id, type) => {
     console.log(`Received message: ${msg}`, id);
-    io.emit('chat message', msg);
-
+    const roomName = msg.roomName;
+    console.log(chatRooms)
+    // io.emit("chat message", msg); // send the message only to clients in the same chat room
+    io.to(roomName).emit("chat message", msg)
     const result = await sendMessage(msg, socket.userId, id, type);
   });
 });
