@@ -3,7 +3,7 @@ console.log( document.querySelector('#main-nav'))
 const main = async() => {
 const user = await window.fetchLoggedInUser()
 window.setNav(user)
-
+let roomName
 console.log(user.user.id)
 let userid = user.user.id
 fetch('/api/listRoom')
@@ -52,6 +52,7 @@ fetch('/api/listRoom')
                     "Content-Type": "application/json"
                   }
             })
+            roomName = elem.name
             window.location.href = `/chatroom.html?room_id=${elem.id}`
         })
         textDiv.append(para)

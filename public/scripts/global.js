@@ -67,11 +67,11 @@ const setNav = (hasLoggedInUser) => {
     <li><a class="nav-link" href="./login.html">Login</a></li>
   </ul>`;
 
-  const loggedInNavHtml = `<ul>
-    <li><a class="nav-link" href="./createChatrooms.html">Create A Room</a></li>
-    <li><a class="nav-link" href="./microphone.html">Join A Voice Chat</a></li>
-    <li><a class="nav-link" href="./chatrooms.html">Chatrooms</a></li>
-    <li><a class="nav-link" href="./user.html">Profile</a></li>
+  const loggedInNavHtml = `<ul class="navbar-nav align-items-end">
+    <li class="nav-item"><a class="nav-link text-dark" href="./createChatrooms.html">Create A Room</a></li>
+    <li class="nav-item"><a class="nav-link text-dark" href="./microphone.html">Join A Voice Chat</a></li>
+    <li class="nav-item"><a class="nav-link text-dark" href="./chatrooms.html">Chatrooms</a></li>
+    <li class="nav-item"><a class="nav-link text-dark" href="./user.html">Profile</a></li>
   </ul>`;
 
   const navHtml = hasLoggedInUser ? loggedInNavHtml : loggedOutNavHtml;
