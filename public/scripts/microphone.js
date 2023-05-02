@@ -1,13 +1,10 @@
 
-const main = async () => {
-  const user = await window.fetchLoggedInUser();
-  console.log(user)
 
 
 const userStatus = {
     microphone: false,
     mute: false,
-    username: user.user.username,
+    username: 'Random User ' + Math.random(),
     online: false,
   };
   
@@ -138,5 +135,3 @@ const userStatus = {
   function emitUserInformation() {
     socket.emit("userInformation", userStatus);
   }
-}
-main()
