@@ -10,7 +10,8 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const requestBody = {
         roomName: roomName.value,
-        description: desc.value
+        description: desc.value,
+        type:"public"
       };
       console.log('Before stringifying:', requestBody);
     if (roomName.value && desc.value) {

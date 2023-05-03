@@ -30,6 +30,14 @@ if(!user) {
   </div>
 </div>
   `
+  document.querySelector('#form').innerHTML = `
+  <form id="searchForm" class ="d-flex align-items-center mb-3 justify-content-center">
+  <input type="text" placeholder="Search Users..." class="form-control" id="search-input" aria-describedby="search">
+<button type="submit" class="btn btn-primary">
+  <i class="fa fa-search"></i>
+</button>
+</form>
+  `
   const input = document.querySelector('#search-input')
   const searchResults = document.getElementById('searchResultsLive')
 
@@ -44,6 +52,7 @@ if(!user) {
     .then(data => {
         console.log(data)
         data.forEach(elem => {
+          if(elem.id !== user.user.id){
             const listEle = document.createElement('li')
             const image = document.createElement('img')
             const button = document.createElement('button')
@@ -71,6 +80,7 @@ if(!user) {
               searchResults.innerHTML = ``
               console.log('hey')
             }
+          }
         })
     })
 

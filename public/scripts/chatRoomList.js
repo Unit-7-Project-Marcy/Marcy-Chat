@@ -11,6 +11,7 @@ fetch('/api/listRoom')
 .then(data => {
     console.log(data)
     data.forEach(elem => {
+        if(elem.type !== 'private'){
         const listElement = document.createElement('li')
         listElement.style.border = "2px solid black"
         listElement.style.padding = "5px"
@@ -63,6 +64,7 @@ fetch('/api/listRoom')
         listElement.append(div)
 
         chatRoomslist.append(listElement)
+    }
     })
 })
 }
