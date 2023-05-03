@@ -26,6 +26,11 @@
     transform: translateY(-50%);
   }
 
+  #received-id {
+    right:0;
+    left:-30px
+  }
+
 
   .sent {
     background-color: blue;

@@ -80,16 +80,20 @@ const chatRoom = async () => {
           username.textContent = message.username;
           username.style.color = "black";
           item.id = "chatElement";
-          item.textContent = message.messages;
+          const messagePara = document.createElement('p')
+          messagePara.textContent = message.messages;
+          item.textContent= message.messages;
           item.append(profilePic);
           if (message.id === user.user.id) {
             item.classList.add("sent");
             para.classList.add("sent-text");
+            messagePara.classList.add("sent")
             username.classList.add("sent-text");
           } else {
             item.classList.add("received");
             para.classList.add("received-text");
             username.classList.add("received-text");
+            profilePic.id = "received-id"
           }
           messageUL.appendChild(username);
           messageUL.appendChild(item);
@@ -132,6 +136,7 @@ const chatRoom = async () => {
             list.classList.add("received");
             item.classList.add("received-text");
             username.classList.add("received-text");
+            profilePic.id = "received-id"
           }
 
           list.append(image)

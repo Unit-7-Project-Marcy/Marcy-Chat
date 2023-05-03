@@ -6,6 +6,7 @@ const checkAuthentication = require('./middleware/check-authentication');
 
 // Import the message controller
 const chatRoomContoller = require('./controllers/chatrooms');
+const friendRequest = require('./controllers/friends/friendsRequest');
 
 const Router = express.Router();
 Router.use(addModels);
@@ -22,7 +23,7 @@ Router.delete('/users/logout', userController.logout);
 Router.get('/me', userController.showMe);
 Router.get('/find', userController.findByUsername)
 Router.get('/show', userController.show)
-
+Router.post('/friendRequest/:id',friendRequest)
 
 Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });

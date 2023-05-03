@@ -1,3 +1,5 @@
+
+
 const main = async () => {
   const user = await window.fetchLoggedInUser();
   // window.setNav(!!user);
@@ -15,12 +17,12 @@ if(!user) {
   `
 } else {
   document.querySelector('#Sign').innerHTML = `
-  <div class="button-container d-flex">
+  <div class="button-container d-flex flex-column flex-sm-row align-items-center">
   <div class="button1 mx-3 my-3">
   <a href="./createChatrooms.html"><button class="btn btn-primary" type="submit">Create A Room</button></a>
   </div>
   <div class="button2 mx-3 my-3">
-  <a href="./microphone.html"><button class="btn btn-primary" type="submit">Join Voice Chat</button></a>
+  <a href="./createVoicechat.html"><button class="btn btn-primary" type="submit">Create Voice Chat</button></a>
   </div>
   <div class="button2 mx-3 my-3">
   <a href="./chatrooms.html"><button class="btn btn-primary" type="submit">Chatrooms</button></a>
@@ -32,7 +34,7 @@ if(!user) {
   `
   document.querySelector('#form').innerHTML = `
   <form id="searchForm" class ="d-flex align-items-center mb-3 justify-content-center">
-  <input type="text" placeholder="Search Users..." class="form-control" id="search-input" aria-describedby="search">
+  <input type="text" autocomplete="off" placeholder="Search Users..." class="form-control" id="search-input" aria-describedby="search">
 <button type="submit" class="btn btn-primary">
   <i class="fa fa-search"></i>
 </button>

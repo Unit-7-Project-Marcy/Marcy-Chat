@@ -39,27 +39,30 @@ io.on('connection', (socket) => {
   const socketId = socket.id;
   socketsStatus[socket.id] = {};
 
+  socket.on("joinVoice", function(roomName) {
+    console.log('Voice Chat')
+    socket.join(roomName);
+  });
 
-  console.log("connect");
-
-  socket.on("voice", function (data) {
+  socket.on("voice", function (data, roomId) {
 
     var newData = data.split(";");
     newData[0] = "data:audio/ogg;";
     newData = newData[0] + newData[1];
+    socket.broadcast.to(roomId).emit("send", newData);
 
-    for (const id in socketsStatus) {
+    // for (const id in socketsStatus) {
 
-      if (id != socketId && !socketsStatus[id].mute && socketsStatus[id].online)
-        socket.broadcast.to(id).emit("send", newData);
-    }
+    //   if (id != socketId && !socketsStatus[id].mute && socketsStatus[id].online)
+    //     socket.broadcast.to(id).emit("send", newData);
+    // }
 
   });
 
-  socket.on("userInformation", function (data) {
+  socket.on("userInformation", function (data,roomid) {
     socketsStatus[socketId] = data;
-
-    io.sockets.emit("usersUpdate",socketsStatus);
+    console.log(data, roomid)
+    socket.to(roomid).emit("usersUpdate",socketsStatus);
   });
 
 
