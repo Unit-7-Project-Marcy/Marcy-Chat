@@ -31,10 +31,9 @@ fetch('/api/listRoom')
         users.style.listStyle = "none"
         let unique = [...new Set(elem.users)]
         if(unique.length > 0) {
-        unique.forEach(elem => {
-            user.textContent = `${elem} Users`
+            user.textContent = `${unique.length} Users`
             users.append(user)
-        })} else {
+        } else {
             user.textContent = `No Users`
             users.append(user)
         }

@@ -49,7 +49,7 @@ class friends {
     static async listFriends(user_id) {
       try {
           const friends = await knex('friends')
-              .select('users.id', 'users.username')
+              .select('users.id', 'users.username', 'users.profile_picture')
               .join('users', function() {
                   this.on('friends.friend_id', '=', 'users.id')
                       .orOn('friends.user_id', '=', 'users.id')
@@ -68,6 +68,41 @@ class friends {
           return null;
       }
   }
+
+  static async deleteFriend(user_id,friend_id) {
+    try {
+        const query = `DELETE FROM friends WHERE user_id = ? AND friend_id = ?`
+        const friendDelete = await knex.raw(query,[user_id,friend_id])
+        return friendDelete
+        }
+     catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+  static async listPending(user_id) {
+    try {
+        const friends = await knex('friends')
+            .select('users.id', 'users.username', 'users.profile_picture')
+            .join('users', function() {
+                this.on('friends.friend_id', '=', 'users.id')
+                    .orOn('friends.user_id', '=', 'users.id')
+            })
+            .where(function() {
+                this.where('friends.user_id', '=', user_id)
+                    .orWhere('friends.friend_id', '=', user_id)
+            })
+            .andWhere('friends.status', '=', 'pending')
+            .groupBy('users.id', 'users.username')
+            .orderBy('users.username', 'asc');
+
+        return friends;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
 
   static async friendshipStatus(user_id,friend_id) {
     try {

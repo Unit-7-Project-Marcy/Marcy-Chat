@@ -28,6 +28,9 @@ if(!user) {
   <a href="./chatrooms.html"><button class="btn btn-primary" type="submit">Chatrooms</button></a>
   </div>
   <div class="button2 mx-3 my-3">
+  <a href="./friendsList.html"><button class="btn btn-primary" type="submit">Friend List</button></a>
+  </div>
+  <div class="button2 mx-3 my-3">
   <a href="./user.html"><button class="btn btn-primary" type="submit">Profile</button></a>
   </div>
 </div>
