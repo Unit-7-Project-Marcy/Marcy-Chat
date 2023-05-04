@@ -22,3 +22,13 @@ nav ul li:first-child {
   text-align: center;
   border: black 1px dashed;
 }
+
+.invalid-passwords {
+  transform: translateX(-50px);
+}
+
+#evil-button {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 2rem;
+}

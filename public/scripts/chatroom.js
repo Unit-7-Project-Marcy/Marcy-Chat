@@ -68,14 +68,14 @@ const chatRoom = async () => {
           const para = document.createElement("p");
           const username = document.createElement("p");
           const profilePic = document.createElement("img");
-          if(message.profile_picture) {
-            profilePic.src = message.profile_picture
+          if (message.profile_picture) {
+            profilePic.src = message.profile_picture;
           } else {
             profilePic.src = `https://www.pngitem.com/pimgs/m/522-5220445_anonymous-profile-grey-person-sticker-glitch-empty-profile.png`;
           }
-          profilePic.style.width="25px"
-          profilePic.style.height="25px"
-          profilePic.style.borderRadius="50%"
+          profilePic.style.width = "25px";
+          profilePic.style.height = "25px";
+          profilePic.style.borderRadius = "50%";
           para.textContent = timeString;
           username.textContent = message.username;
           username.style.color = "black";
@@ -106,20 +106,20 @@ const chatRoom = async () => {
             hour12: true,
           });
           console.log(timeString);
-          const list = document.createElement('li')
+          const list = document.createElement("li");
           const item = document.createElement("p");
           item.textContent = timeString;
           const image = document.createElement("img");
           const username = document.createElement("p");
           const profilePic = document.createElement("img");
-          if(message.profile_picture) {
-            profilePic.src = message.profile_picture
+          if (message.profile_picture) {
+            profilePic.src = message.profile_picture;
           } else {
             profilePic.src = `https://www.pngitem.com/pimgs/m/522-5220445_anonymous-profile-grey-person-sticker-glitch-empty-profile.png`;
           }
-          profilePic.style.position="absolute"
-          profilePic.style.right="5px"
-          profilePic.style.borderRadius="50%"
+          profilePic.style.position = "absolute";
+          profilePic.style.right = "5px";
+          profilePic.style.borderRadius = "50%";
           username.textContent = message.username;
           username.style.color = "black";
           image.src = message.messages;
@@ -139,8 +139,8 @@ const chatRoom = async () => {
             profilePic.id = "received-id"
           }
 
-          list.append(image)
-          list.append(profilePic)
+          list.append(image);
+          list.append(profilePic);
           messageUL.appendChild(username);
           messageUL.appendChild(list);
           messageUL.appendChild(item);
@@ -179,11 +179,49 @@ const chatRoom = async () => {
     if (input.value) {
       const message = {
         text: input.value,
-        senderId: user.user.id, // assume userId is defined somewhere
+        senderId: user.user.id,
         time_created: new Date(),
         username: user.user.username,
+
         roomName: document.getElementById("RoomName").textContent,
       };
+
+      if (message.text.startsWith("ask an instructor:")) {
+        const requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer pk-zbLyadwWhOMxTpybCNmradnoTQlArkspvoeFHQcGHcSCexcZ",
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            max_tokens: 100,
+            messages: [
+              {
+                role: "user",
+                content: message.text,
+              },
+            ],
+          }),
+        };
+
+        fetch("https://api.pawan.krd/v1/chat/completions", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            const responseText = data.choices[0].message.content;
+            const responseMessage = {
+              text: responseText,
+              senderId: "AI Assistant",
+              time_created: new Date(),
+              username: "AI Instructor",
+              backgroundColor: "#c4c4c4",
+              color: "#000000",
+            };
+            socket.emit("chat message", responseMessage, roomId);
+          })
+          .catch((error) => console.error(error));
+      }
       socket.emit("chat message", message, roomId);
       input.value = "";
     }
@@ -196,9 +234,9 @@ const chatRoom = async () => {
     const para = document.createElement("p");
     const image = document.createElement("img");
     const username = document.createElement("p");
-    image.style.width="25px"
-    image.style.height="25px"
-    image.style.borderRadius="50%"
+    image.style.width = "25px";
+    image.style.height = "25px";
+    image.style.borderRadius = "50%";
     image.src = imageSrc;
     const date = new Date(message.time_created);
     const timeString = date.toLocaleString("en-US", {
@@ -206,8 +244,8 @@ const chatRoom = async () => {
       minute: "numeric",
       hour12: true,
     });
-    username.textContent = message.username
-    username.style.color = "black"
+    username.textContent = message.username;
+    username.style.color = "black";
     para.textContent = timeString;
     item.id = "chatElement";
     item.textContent = message.text;
@@ -219,9 +257,8 @@ const chatRoom = async () => {
       item.classList.add("received");
       para.classList.add("received-text");
       username.classList.add("received-text");
-
     }
-    item.append(image)
+    item.append(image);
     messageUL.appendChild(username);
     messageUL.appendChild(item);
     messageUL.appendChild(para);
@@ -240,8 +277,8 @@ const chatRoom = async () => {
       hour12: true,
     });
     const username = document.createElement("p");
-    username.textContent = user.user.username
-    username.style.color = "black"
+    username.textContent = user.user.username;
+    username.style.color = "black";
     console.log(timeString);
     para.textContent = timeString;
     item.id = "chatElement";
@@ -257,7 +294,7 @@ const chatRoom = async () => {
       para.classList.add("received-text");
       username.classList.add("received-text");
     }
-    messageUL.append(username)
+    messageUL.append(username);
     messageUL.append(imageSent);
     messageUL.appendChild(para);
     window.scrollTo(0, document.body.scrollHeight);
