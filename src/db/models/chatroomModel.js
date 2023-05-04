@@ -14,14 +14,25 @@ class chatrooms {
           }
     }
 
-    static async newChatRoom(name,description) {
+    static async getChatroomName(id) {
+      try {
+          const rooms = await knex("chat_rooms").select().where('id',id);
+          return rooms;
+        } catch (err) {
+          console.error(err);
+          return null;
+        }
+  }
+
+    static async newChatRoom(name,description,type) {
         try {
             const roomId = uuidv4();
           const result = await knex("chat_rooms").insert({
             id: roomId,
             name, 
             description, 
-            users: [] 
+            users: [],
+            type,
           }).returning('*');
           return result;
         } catch (err) {

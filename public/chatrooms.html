@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatrooms</title>
     <script src="./scripts/global.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="./scripts/chatRoomList.js" defer></script>
     <script src="https://kit.fontawesome.com/3232dc6896.js" crossorigin="anonymous"></script>
     <link
@@ -18,26 +19,15 @@
   <link href="./styles/style.css" rel="stylesheet">
   <link href="styles/chatRoomList.css" rel="stylesheet">
 </head>
-<body style="height: 100vh;width: 100vw;">
-  <nav class="navbar navbar-expand-lg bg-light">
+<body style="overflow: hidden;">
+  <nav class="navbar navbar-expand-lg bg-glass text-dark" style="height:auto">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Home</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <a class="navbar-brand" href="/">Chatrooms</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="collapse navbar-collapse d-flex justify-content-end"
-        id="navbarNavAltMarkup"
-      >
-        <div class="navbar-nav" id="main-nav"></div>
+      <div class="collapse navbar-collapse  justify-content-end" id="main-nav">
+
       </div>
     </div>
   </nav>
@@ -51,5 +41,6 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"
   ></script>
+  <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
 </body>
 </html>

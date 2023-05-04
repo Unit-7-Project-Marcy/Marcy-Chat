@@ -5,7 +5,9 @@ const checkAuthentication = require('./middleware/check-authentication');
 
 
 // Import the message controller
-const messageController = require('./controllers/message');
+const chatRoomContoller = require('./controllers/chatrooms');
+const friendsController = require('./controllers/friends')
+
 
 const Router = express.Router();
 Router.use(addModels);
@@ -20,11 +22,22 @@ Router.patch('/users/:id', checkAuthentication, userController.update);
 Router.post('/users/login', userController.login);
 Router.delete('/users/logout', userController.logout);
 Router.get('/me', userController.showMe);
+Router.get('/find', userController.findByUsername)
+Router.get('/show', userController.show)
+
+//friends
+Router.get('/:user_id/getFriends',friendsController.friendsList)
+Router.post('/friendRequest/:id',friendsController.friendsRequest)
+Router.post('/responseFriendRequest/:id',friendsController.respondFriendRequest)
+Router.post('/friendshipStatus/:id',friendsController.friendsStatus)
+Router.get('/:user_id/pending', friendsController.pendingList)
+Router.delete('/delete/:id')
 
 Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });
 });
 
+Router.get('/findRoom/:id', chatRoomContoller.findRoom)
 
 
 

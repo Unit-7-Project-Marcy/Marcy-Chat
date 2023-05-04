@@ -6,6 +6,7 @@ const findProfilePicture = require('./profilePicture')
 const login = require('./login');
 const logout = require('./logout');
 const showMe = require('./show-me');
+const findByUsername = require('./findUsername');
 
 module.exports = {
   list,
@@ -16,4 +17,5 @@ module.exports = {
   login,
   logout,
   showMe,
+  findByUsername,
 };

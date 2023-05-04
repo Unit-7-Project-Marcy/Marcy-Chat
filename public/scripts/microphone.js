@@ -1,16 +1,14 @@
 
-const main = async () => {
-  const user = await window.fetchLoggedInUser();
-  console.log(user)
 
 
 const userStatus = {
     microphone: false,
     mute: false,
-    username: user.user.username,
+    username: 'Random User ' + Math.random(),
     online: false,
   };
-  
+  const roomId = new URLSearchParams(window.location.search).get("roomName");
+
   const usernameInput = document.getElementById("username");
   const usernameLabel = document.getElementById("username-label");
   const usernameDiv = document.getElementById("username-div");
@@ -25,9 +23,15 @@ const userStatus = {
   };
   
   var socket = io("ws://localhost:3000");
-  socket.emit("userInformation", userStatus);
+
+  socket.emit('joinVoice', roomId)
+
+
+  socket.emit("userInformation", userStatus, roomId);
+
+
   
-  
+
   function mainFunction(time) {
   
   
@@ -52,7 +56,7 @@ const userStatus = {
           if (!userStatus.microphone || !userStatus.online) return;
   
           var base64String = fileReader.result;
-          socket.emit("voice", base64String);
+          socket.emit("voice", base64String, roomId);
   
         };
   
@@ -76,6 +80,7 @@ const userStatus = {
     });
   
     socket.on("usersUpdate", function (data) {
+      console.log(data)
       usersDiv.innerHTML = '';
       for (const key in data) {
         if (!Object.hasOwnProperty.call(data, key)) continue;
@@ -136,7 +141,5 @@ const userStatus = {
   }
   
   function emitUserInformation() {
-    socket.emit("userInformation", userStatus);
+    socket.emit("userInformation", userStatus, roomId);
   }
-}
-main()

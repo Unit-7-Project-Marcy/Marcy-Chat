@@ -30,6 +30,12 @@ class User {
     return user ? new User(user) : null;
   }
 
+  static async searchUsername(username) {
+    const query = 'SELECT * FROM users WHERE username LIKE ?';
+    const { rows } = await knex.raw(query, [`${username}%`]);
+    return rows ? rows : null;
+  }
+
   static async create(username, password) {
     const passwordHash = await hashPassword(password);
 

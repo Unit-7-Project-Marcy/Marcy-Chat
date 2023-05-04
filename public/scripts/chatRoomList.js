@@ -1,9 +1,9 @@
 const chatRoomslist = document.getElementById('chatRooms');
 console.log( document.querySelector('#main-nav'))
 const main = async() => {
+const socket = io();
 const user = await window.fetchLoggedInUser()
 window.setNav(user)
-let roomName
 console.log(user.user.id)
 let userid = user.user.id
 fetch('/api/listRoom')
@@ -11,6 +11,7 @@ fetch('/api/listRoom')
 .then(data => {
     console.log(data)
     data.forEach(elem => {
+        if(elem.type !== 'private'){
         const listElement = document.createElement('li')
         listElement.style.border = "2px solid black"
         listElement.style.padding = "5px"
@@ -30,10 +31,9 @@ fetch('/api/listRoom')
         users.style.listStyle = "none"
         let unique = [...new Set(elem.users)]
         if(unique.length > 0) {
-        unique.forEach(elem => {
-            user.textContent = `${elem} Users`
+            user.textContent = `${unique.length} Users`
             users.append(user)
-        })} else {
+        } else {
             user.textContent = `No Users`
             users.append(user)
         }
@@ -42,6 +42,7 @@ fetch('/api/listRoom')
         button.style.backgroundColor = "transparent"
         button.innerHTML = `<i class="fa-solid fa-circle-plus" style="color: #99ad00;"></i>`
         button.addEventListener('click', () => {
+            socket.emit('joinRoom',elem.name)
             fetch('/api/joinRoom', {
                 method: "POST",
                 body: JSON.stringify({
@@ -52,7 +53,6 @@ fetch('/api/listRoom')
                     "Content-Type": "application/json"
                   }
             })
-            roomName = elem.name
             window.location.href = `/chatroom.html?room_id=${elem.id}`
         })
         textDiv.append(para)
@@ -63,6 +63,7 @@ fetch('/api/listRoom')
         listElement.append(div)
 
         chatRoomslist.append(listElement)
+    }
     })
 })
 }

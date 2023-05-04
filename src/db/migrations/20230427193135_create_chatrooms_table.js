@@ -8,6 +8,7 @@ exports.up = (knex) => {
         table.string('name').notNullable();
         table.text('description').notNullable();
         table.specificType('users', 'TEXT[]').notNullable().defaultTo('{}');
+        table.string('type').defaultTo('public')
         table.timestamps(true,true)
     })
 };
