@@ -61,7 +61,7 @@ fetch('/api/listRoom')
         div.append(users)
         listElement.append(textDiv)
         listElement.append(div)
-
+        listElement.classList.add('mb-3')
         chatRoomslist.append(listElement)
     }
     })

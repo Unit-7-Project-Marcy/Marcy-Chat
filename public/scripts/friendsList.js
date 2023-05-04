@@ -56,7 +56,7 @@ const main = async () => {
             div.append(accept)
             div.append(decline)
             decline.textContent="Decline"
-            accept.classList.add("btn", "btn-primary")
+            accept.classList.add("btn", "btn-primary", 'mx-3')
             accept.addEventListener('click', () => {
                 fetch('/api//responseFriendRequest/' + elem.id, {
                     method: "POST",
@@ -70,7 +70,7 @@ const main = async () => {
                 })
                 accept.textContent = `Accepted`
             })
-            decline.classList.add("btn", "btn-primary")
+            decline.classList.add("btn", "btn-primary",'mx-3')
             decline.addEventListener('click', () => {
                 fetch('/api//responseFriendRequest/' + elem.id, {
                     method: "POST",

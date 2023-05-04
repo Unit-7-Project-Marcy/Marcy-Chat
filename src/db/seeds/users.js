@@ -6,7 +6,6 @@ const User = require('../models/user');
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('users').del()
   await User.create('cool_cat', 'password1');
   await User.create('l33t-guy', 'password1');
   await User.create('cool-kid', 'password1');

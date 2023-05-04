@@ -71,7 +71,7 @@ class friends {
 
   static async deleteFriend(user_id,friend_id) {
     try {
-        const query = `DELETE FROM friends WHERE user_id = ? AND friend_id = ?`
+        const query = `DELETE FROM friends WHERE user_id = ? AND friend_id = ? RETURNING *`
         const friendDelete = await knex.raw(query,[user_id,friend_id])
         return friendDelete
         }

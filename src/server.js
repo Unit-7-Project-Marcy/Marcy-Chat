@@ -129,7 +129,13 @@ io.on('connection', (socket) => {
     console.log(chatRooms)
     // io.emit("chat message", msg); // send the message only to clients in the same chat room
     io.to(roomName).emit("chat message", msg)
+    console.log(socket.userId)
+    if(msg.id){
+      const result = await sendMessage(msg, msg.id, id, type);
+    }
+    else {
     const result = await sendMessage(msg, socket.userId, id, type);
+    }
   });
 });
 

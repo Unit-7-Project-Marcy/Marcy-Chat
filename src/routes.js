@@ -31,7 +31,7 @@ Router.post('/friendRequest/:id',friendsController.friendsRequest)
 Router.post('/responseFriendRequest/:id',friendsController.respondFriendRequest)
 Router.post('/friendshipStatus/:id',friendsController.friendsStatus)
 Router.get('/:user_id/pending', friendsController.pendingList)
-Router.delete('/delete/:id')
+Router.delete('/delete/:id', friendsController.deleteFriend)
 
 Router.get('/logged-in-secret', checkAuthentication, (req, res) => {
   res.send({ msg: 'The secret is: there is no secret.' });

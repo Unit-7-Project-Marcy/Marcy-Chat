@@ -5,9 +5,11 @@ const main = async () => {
   window.setNav(user);
   const username = document.querySelector("#username");
   const messaging = document.querySelector("#DirectMessage");
+  const voicechat = document.querySelector('#voiceChat')
   const friendButton = document.querySelector("#friend")
   const requestBody = {};
   const id = new URLSearchParams(window.location.search).get("id");
+
   fetch("/api/friendshipStatus/" + id, {
     method:"POST",
     headers: {
@@ -24,9 +26,33 @@ const main = async () => {
     }
      else if(data.length > 0 && data[0].status == "accepted") {
       friendButton.textContent = `Remove friend`
+      friendButton.addEventListener('click', () => {
+        fetch('/api/delete/' + id, {
+          method:"DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body:userObj
+        }).then(response => response.json())
+        .then(data => {
+          console.log(data)
+        })
+      })
     }
     else {
       friendButton.textContent = `Add friend`
+      friendButton.addEventListener('click', () => {
+        fetch('/api/friendRequest/' + id, {
+          method:"POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body:userObj
+        }).then(response => response.json())
+        .then(data => {
+          console.log(data)
+        })
+      })
     }
   })
 
@@ -35,11 +61,17 @@ const main = async () => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      if(data.username=='AI instructor') {
+        friendButton.style.display="none"
+      }
       const image = document.querySelector("img");
       image.style.width = "150px";
       image.style.height = "150px";
       image.style.borderRadius = " 50%";
       username.textContent = data.username;
+      voicechat.addEventListener('click', () => {
+        window.location = `/microphone.html?roomName=${data.username}+${user.user.username}`
+      })
       if (data.profile_picture) {
         image.src = data.profile_picture;
       } else {
@@ -91,18 +123,7 @@ const main = async () => {
       "user_id": user.user.id.toString(),
     })
     console.log(userObj)
-    friendButton.addEventListener('click', () => {
-      fetch('/api/friendRequest/' + id, {
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body:userObj
-      }).then(response => response.json())
-      .then(data => {
-        console.log(data)
-      })
-    })
+
 };
 
 main();

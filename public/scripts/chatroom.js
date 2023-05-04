@@ -44,6 +44,10 @@ const chatRoom = async () => {
     socket.emit('joinRoom', roomName);
     document.getElementById("RoomName").textContent = roomName
   })
+  const response = await fetch('/api/findRoom/' + roomId)
+  const data = await response.json()
+  console.log(data)
+  const roomName = data[0].name
   socket.emit("room id", roomId);
   if (user.user.profile_picture) {
     imageSrc = user.user.profile_picture;
@@ -195,9 +199,13 @@ const chatRoom = async () => {
               "Bearer pk-zbLyadwWhOMxTpybCNmradnoTQlArkspvoeFHQcGHcSCexcZ",
           },
           body: JSON.stringify({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4",
             max_tokens: 100,
             messages: [
+              {
+                role: "system",
+                content: "You are an helpful instructor at the Marcy Lab School in Brookyn, New York City. Make sure you answer any of the students questions to the best of your ability. Make sure not to provide any code whatsoever. If the student asks you to write any code link the student to reference the documentation. Respond by telling the student as an AI Instructor, it's against my programming to provide any code and it's best you learn to code on your own. But also provide documentation for the student to use. If you have any questions, tell the student to contact an instructor. Only provide javascript documentation.",
+              },
               {
                 role: "user",
                 content: message.text,
@@ -217,7 +225,10 @@ const chatRoom = async () => {
               username: "AI Instructor",
               backgroundColor: "#c4c4c4",
               color: "#000000",
+              roomName,
+              id:1,
             };
+            console.log(responseMessage)
             socket.emit("chat message", responseMessage, roomId);
           })
           .catch((error) => console.error(error));

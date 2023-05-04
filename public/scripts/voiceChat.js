@@ -1,3 +1,7 @@
+
+const voiceChat = async () => {
+  const user = await window.fetchLoggedInUser()
+  window.setNav(user)
 function generateRoomName(prefix, length) {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let roomName = prefix;
@@ -9,8 +13,15 @@ function generateRoomName(prefix, length) {
   
   const roomName = generateRoomName(`roomid-`, 6);
 const button = document.querySelector('#createRoom')
-
+const input = document.querySelector('#RoomName')
+console.log(input.value)
 button.addEventListener('click', (e) => {
-    e.preventDefault()
-  window.location = `/microphone.html?roomName=${roomName}`
+  e.preventDefault()
+  if(input.value.length > 0){
+  window.location = `/microphone.html?roomName=${input.value}`
+  }
 })
+
+}
+
+voiceChat()
