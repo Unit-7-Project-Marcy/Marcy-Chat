@@ -5,8 +5,32 @@ const main = async () => {
   window.setNav(user);
   const username = document.querySelector("#username");
   const messaging = document.querySelector("#DirectMessage");
+  const friendButton = document.querySelector("#friend")
   const requestBody = {};
   const id = new URLSearchParams(window.location.search).get("id");
+  fetch("/api/friendshipStatus/" + id, {
+    method:"POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body:JSON.stringify({
+      "user_id": user.user.id.toString(),
+    })
+  }).then(response => response.json())
+  .then(data => {
+    console.log(data)
+    if(data.length > 0 && data[0].status == "pending") {
+      friendButton.textContent = `Friend Request Sent`
+    }
+     else if(data.length > 0 && data[0].status == "accepted") {
+      friendButton.textContent = `Remove friend`
+    }
+    else {
+      friendButton.textContent = `Add friend`
+    }
+  })
+
+
   fetch("/api/show?id=" + id)
     .then((response) => response.json())
     .then((data) => {
@@ -62,6 +86,23 @@ const main = async () => {
         });
       }
     });
+   
+    const userObj = JSON.stringify({
+      "user_id": user.user.id.toString(),
+    })
+    console.log(userObj)
+    friendButton.addEventListener('click', () => {
+      fetch('/api/friendRequest/' + id, {
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body:userObj
+      }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+    })
 };
 
 main();
