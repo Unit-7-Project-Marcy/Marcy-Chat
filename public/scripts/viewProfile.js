@@ -26,6 +26,7 @@ const main = async () => {
     }
      else if(data.length > 0 && data[0].status == "accepted") {
       friendButton.textContent = `Remove friend`
+      friendButton.classList.add("btn", "btn-danger")
       friendButton.addEventListener('click', () => {
         fetch('/api/delete/' + id, {
           method:"DELETE",
@@ -42,6 +43,7 @@ const main = async () => {
     else {
       friendButton.textContent = `Add friend`
       friendButton.addEventListener('click', () => {
+        friendButton.textContent = `Friend Request Sent`
         fetch('/api/friendRequest/' + id, {
           method:"POST",
           headers: {
@@ -51,6 +53,7 @@ const main = async () => {
         }).then(response => response.json())
         .then(data => {
           console.log(data)
+          socket.emit('friend req', data)
         })
       })
     }

@@ -68,12 +68,19 @@ const setNav = (hasLoggedInUser) => {
     <li><a class="nav-link" href="./login.html">Login</a></li>
   </ul>`;
 
-  const loggedInNavHtml = `<ul class="navbar-nav align-items-end">
+  const loggedInNavHtml = `
+  <ul class="navbar-nav align-items-start justify-content-end mx-3">
     <li class="nav-item"><a class="nav-link text-dark" href="./createChatrooms.html">Create A Room</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./createVoicechat.html">Start A Voice Chat</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./chatrooms.html">Chatrooms</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./user.html">Profile</a></li>
-  </ul>`;
+  </ul>
+
+  <form class="d-flex" role="search">
+  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
+</form>
+  
+  `;
 
   const navHtml = hasLoggedInUser ? loggedInNavHtml : loggedOutNavHtml;
   document.querySelector('#main-nav').innerHTML = navHtml;

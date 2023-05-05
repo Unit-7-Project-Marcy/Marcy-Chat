@@ -77,10 +77,14 @@ io.on('connection', (socket) => {
   });
 
   console.log('A user connected');
-  const cookies = socket.handshake.headers.cookie.split(';');
+  const cookies = socket.handshake.headers.cookie;
   let userId;
+  if (cookies) {
+    const cookieArray = cookies.split(';');
+    // process the cookieArray as needed
+ 
 
-  for (const cookie of cookies) {
+  for (const cookie of cookieArray) {
     const [name, value] = cookie.trim().split('=');
 
     if (name === 'session') {
@@ -89,6 +93,12 @@ io.on('connection', (socket) => {
       break;
     }
   }
+}
+socket.on('login', (userId) => {
+  console.log(`User id: ` + userId)
+  socket.join(userId);
+});
+
   socket.on('room id', (roomId) => {
     socket.roomId = roomId;
   });
@@ -122,6 +132,12 @@ io.on('connection', (socket) => {
    io.emit('image message',result)
    console.log(result)
  });
+
+ socket.on('friend req', function (data) {
+  const recipientId = data.friend_id
+  console.log(`Recipient id: ` +recipientId)
+  io.to(recipientId).emit('friend_req', data);
+ })
 
   socket.on("chat message", async (msg, id, type) => {
     console.log(`Received message: ${msg}`, id);
