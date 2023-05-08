@@ -8,37 +8,42 @@ if(!user) {
   document.querySelector('#Sign').innerHTML = `
   <div class="button-container d-flex">
   <div class="button1 mx-3 my-3">
-  <a href="./create.html"><button class="btn btn-primary" type="submit">Sign Up</button></a>
+  <a href="./create.html"><button class="btn btn-dark" type="submit">Sign Up</button></a>
   </div>
   <div class="button2 mx-3 my-3">
-  <a href="./login.html"><button class="btn btn-primary" type="submit">Login</button></a>
+  <a href="./login.html"><button class="btn btn-dark" type="submit">Login</button></a>
   </div>
 </div>
   `
 } else {
   document.querySelector('#Sign').innerHTML = `
-  <div class="button-container d-flex flex-column flex-sm-row align-items-center">
-  <div class="button1 mx-3 my-3">
-  <a href="./createChatrooms.html"><button class="btn btn-primary" type="submit">Create A Room</button></a>
+  <div class="button-container d-flex flex-column flex-sm-row align-items-center row justify-content-center" style="text-align:center;">
+  <div class="button1 mx-3 my-3 col-6 col-sm-3 d-flex flex-column">
+  <i class="fa-solid fa-plus mb-3" style="color: #000000;"></i>
+  <a href="./createChatrooms.html"><button class="btn btn-dark" type="submit">Create A Room</button></a>
   </div>
-  <div class="button2 mx-3 my-3">
-  <a href="./createVoicechat.html"><button class="btn btn-primary" type="submit">Create Voice Chat</button></a>
+  <div class="button2 mx-3 my-3 col-6 col-sm-3 d-flex flex-column">
+  <i class="fa-solid fa-headphones-simple mb-3" style="color: #000000;"></i>
+  <a href="./createVoicechat.html"><button class="btn btn-dark" type="submit">Create Voice Chat</button></a>
   </div>
-  <div class="button2 mx-3 my-3">
-  <a href="./chatrooms.html"><button class="btn btn-primary" type="submit">Chatrooms</button></a>
+  <div class="button2 mx-3 my-3 col-6 col-sm-3 d-flex flex-column">
+  <i class="fa-solid fa-comments mb-3" style="color: #000000;"></i>
+  <a href="./chatrooms.html"><button class="btn btn-dark" type="submit">Chatrooms</button></a>
   </div>
-  <div class="button2 mx-3 my-3">
-  <a href="./friendsList.html"><button class="btn btn-primary" type="submit">Friend List</button></a>
+  <div class="button2 mx-3 my-3 col-6 col-sm-3 d-flex flex-column">
+  <i class="fa-solid fa-user-group mb-3" style="color: #000000;"></i>
+  <a href="./friendsList.html"><button class="btn btn-dark" type="submit">Friend List</button></a>
   </div>
-  <div class="button2 mx-3 my-3">
-  <a href="./user.html"><button class="btn btn-primary" type="submit">Profile</button></a>
+  <div class="button2 mx-3 my-3 col-6 col-sm-3 d-flex flex-column">
+  <i class="fa-solid fa-user mb-3" style="color: #000000;"></i>
+  <a href="./user.html"><button class="btn btn-dark" type="submit">Profile</button></a>
   </div>
 </div>
   `
   document.querySelector('#form').innerHTML = `
   <form id="searchForm" class ="d-flex align-items-center mb-3 justify-content-center">
   <input type="text" autocomplete="off" placeholder="Search Users..." class="form-control" id="search-input" aria-describedby="search">
-<button type="submit" class="btn btn-primary">
+<button type="submit" class="btn btn-dark mx-2">
   <i class="fa fa-search"></i>
 </button>
 </form>
@@ -64,12 +69,14 @@ if(!user) {
             button.addEventListener('click', function(){
               window.location = '/viewProfile.html?id=' + elem.id
             })
-            button.classList.add('btn', 'btn-primary')
+            button.classList.add('btn', 'btn-dark')
             button.style.marginTop = "7px"
+            button.style.marginBottom = "7px"
             button.textContent ="View Profile"
-            listEle.classList.add('d-flex', 'flex-row-reverse')
+            listEle.classList.add('d-flex', 'flex-row-reverse', 'justify-content-center')
             image.style.width = "25px"
             image.style.height = "25px"
+            image.style.borderRadius = "50%"
             if(elem.profile_picture) {
               image.src = elem.profile_picture
             } else {

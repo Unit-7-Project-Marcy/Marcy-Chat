@@ -1,21 +1,32 @@
 const chatRoomslist = document.getElementById('chatRooms');
-
-console.log( document.querySelector('#main-nav'))
+const directMessages = document.getElementById('directMessages')
 const main = async() => {
 const socket = io();
 const user = await window.fetchLoggedInUser()
 window.setNav(user)
-console.log(user.user.id)
 let userid = user.user.id
+
+const button = document.querySelector('#voiceButton')
+const room = document.querySelector('#voiceInput')
+console.log(room.value)
+button.addEventListener('click', (e) => {
+  e.preventDefault()
+  if(room.value.length > 0){
+  window.location = `/microphone.html?roomName=${room.value}`
+  }
+})
+
 fetch('/api/listRoom')
 .then(response => response.json())
 .then(data => {
     console.log(data)
     data.forEach(elem => {
+
         if(elem.type !== 'private'){
         const listElement = document.createElement('li')
         listElement.style.border = "2px solid black"
         listElement.style.padding = "5px"
+        listElement.style.width = "25em"
         listElement.classList.add('d-flex','flex-row','justify-content-between','align-items-center')
         const div = document.createElement('div')
         const textDiv = document.createElement('div')
@@ -65,6 +76,54 @@ fetch('/api/listRoom')
         listElement.classList.add('mb-3')
         chatRoomslist.append(listElement)
     }
+    else{
+      const regex = /Direct message between (\w+) and (\w+)/;
+      const matches = elem.description.match(regex);
+      const user1 = matches[1];
+      const user2 = matches[2];
+      if(user.user.username == user1 || user.user.username == user2) {
+        console.log(elem)
+        const listElement = document.createElement('li')
+        listElement.style.border = "2px solid black"
+        listElement.style.padding = "5px"
+        listElement.style.width = "25em"
+        listElement.classList.add('d-flex','flex-row','justify-content-between','align-items-center')
+        const div = document.createElement('div')
+        const textDiv = document.createElement('div')
+        textDiv.classList.add('d-flex','flex-column','justify-content-between')
+        div.classList.add('d-flex', 'flex-column', 'align-items-end')
+        const para = document.createElement('p')
+        para.textContent = `User: ${elem.name}`
+        const desc = document.createElement('p')
+        para.style.margin = 0
+        desc.style.margin = 0
+        
+        const button = document.createElement('button')
+        button.style.border = '0'
+        button.style.backgroundColor = "transparent"
+        button.innerHTML = `<i class="fa-solid fa-circle-plus" style="color: #99ad00;"></i>`
+        button.addEventListener('click', () => {
+            socket.emit('joinRoom',elem.name)
+            fetch('/api/joinRoom', {
+                method: "POST",
+                body: JSON.stringify({
+                    "roomId":elem.id,
+                    "userId":userid
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                  }
+            })
+            window.location.href = `/chatroom.html?room_id=${elem.id}`
+        })
+        textDiv.append(para)
+        div.append(button)
+        listElement.append(textDiv)
+        listElement.append(div)
+        listElement.classList.add('mb-3')
+        directMessages.append(listElement)     
+       }
+    }
     })
 })
 const input = document.querySelector('#search-bar')
@@ -88,7 +147,7 @@ input.addEventListener('input', (e) => {
             button.addEventListener('click', function(){
               window.location = '/viewProfile.html?id=' + elem.id
             })
-            button.classList.add('btn', 'btn-primary')
+            button.classList.add('btn', 'btn-dark')
             button.style.marginTop = "7px"
             button.textContent ="View Profile"
             listEle.classList.add('d-flex', 'flex-row-reverse')

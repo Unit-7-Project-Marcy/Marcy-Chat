@@ -5,6 +5,8 @@ const chatRoom = async () => {
 
 
 
+
+
   const fileUploadBtn = document.getElementById("file-upload-btn");
   fileUploadBtn.addEventListener("click", () => {
     fileInput.click();
@@ -35,6 +37,11 @@ const chatRoom = async () => {
   const user = await window.fetchLoggedInUser();
 
   window.setNav(!!user);
+
+  const search = document.querySelector('#search-bar')
+  const searchResults = document.getElementById('search-results')
+  
+  search.style.display = "none"
 
   console.log(user);
   // make a GET request for message history
@@ -196,15 +203,15 @@ const chatRoom = async () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer pk-zbLyadwWhOMxTpybCNmradnoTQlArkspvoeFHQcGHcSCexcZ",
+              "Bearer " + config.api_key,
           },
           body: JSON.stringify({
-            model: "gpt-4",
-            max_tokens: 100,
+            model: "gpt-3.5-turbo",
+            max_tokens: 400,
             messages: [
               {
                 role: "system",
-                content: "You are an helpful instructor at the Marcy Lab School in Brookyn, New York City. Make sure you answer any of the students questions to the best of your ability. Make sure not to provide any code whatsoever. If the student asks you to write any code link the student to reference the documentation. Respond by telling the student as an AI Instructor, it's against my programming to provide any code and it's best you learn to code on your own. But also provide documentation for the student to use. If you have any questions, tell the student to contact an instructor. Only provide javascript documentation.",
+                content: "You are an helpful instructor at the Marcy Lab School in Brookyn, New York City. Make sure you answer any of the students questions to the best of your ability. Make sure not to provide any code whatsoever. If the student asks you to write any code link the student to reference the documentation. Respond by telling the student as an AI Instructor, it's against my programming to provide any code and it's best you learn to code on your own. But also provide documentation for the student to use. If you have any questions, tell the student to contact an instructor. Most questions you should answer in javascript but you can also provide html and css help as long as express, node, and some other npm pakages if you feel the need it. You can provide psuedo code if you feel it is necessary.",
               },
               {
                 role: "user",

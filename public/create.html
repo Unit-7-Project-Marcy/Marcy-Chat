@@ -104,7 +104,8 @@ input{
   color: #e5e5e5;
 }
 button{
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 100%;
   background-color: #ffffff;
   color: #080710;
@@ -158,16 +159,18 @@ margin-right: 4px;
   const passwordInput1 = document.getElementById('password1');
   const passwordInput2 = document.getElementById('password2');
   const signUpButton = document.getElementById('signup-button');
-  signUpButton.style.visibility = 'hidden'
+  signUpButton.style.backgroundColor = 'transparent'
+  signUpButton.style.border="2px solid black"
   function checkPasswordsMatch() {
     return passwordInput1.value === passwordInput2.value;
   }
 
   function toggleButtonDisabled() {
     if(checkPasswordsMatch()) {
-      signUpButton.style.visibility = 'visible'
+      signUpButton.style.backgroundColor = 'white'
+
     } else {
-      signUpButton.style.visibility = 'hidden'
+      signUpButton.style.backgroundColor = 'transparent'
     }
   }
 

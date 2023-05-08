@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Chat Room</title>
+    <script src="./scripts/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
     <style>
       body {
@@ -72,7 +73,7 @@
       style="height: auto"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">Chatrooms</a>
+        <a class="navbar-brand" href="/">Chatterbot</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -90,6 +91,8 @@
         ></div>
       </div>
     </nav>
+    <ul id="search-results"></ul>
+
     <main class="text-center">
       <h1 id="RoomName"></h1>
 

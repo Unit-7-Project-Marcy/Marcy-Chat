@@ -73,6 +73,7 @@ const setNav = (hasLoggedInUser) => {
     <li class="nav-item"><a class="nav-link text-dark" href="./createChatrooms.html">Create A Room</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./createVoicechat.html">Start A Voice Chat</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./chatrooms.html">Chatrooms</a></li>
+    <li class="nav-item"><a class="nav-link text-dark" href="./friendsList.html">Friends List</a></li>
     <li class="nav-item"><a class="nav-link text-dark" href="./user.html">Profile</a></li>
   </ul>
 

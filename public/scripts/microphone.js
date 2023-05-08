@@ -1,12 +1,16 @@
-
+const userFunction = async () =>{
+  const user = await window.fetchLoggedInUser()
+  return user.user.username
+}
 
 
 const userStatus = {
     microphone: false,
     mute: false,
-    username: 'Random User ' + Math.random(),
+    username: "Active User",
     online: false,
-  };
+
+};
   const roomId = new URLSearchParams(window.location.search).get("roomName");
 
   const usernameInput = document.getElementById("username");
@@ -21,8 +25,9 @@ const userStatus = {
   window.onload = (e) => {
     mainFunction(1000);
   };
-  
-  var socket = io("ws://localhost:3000");
+  //working variation of socket
+  // var socket = io("ws://localhost:3000");
+  var socket = io();
 
   socket.emit('joinVoice', roomId)
 

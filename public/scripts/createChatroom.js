@@ -48,7 +48,7 @@ input.addEventListener('input', (e) => {
             button.addEventListener('click', function(){
               window.location = '/viewProfile.html?id=' + elem.id
             })
-            button.classList.add('btn', 'btn-primary')
+            button.classList.add('btn', 'btn-dark')
             button.style.marginTop = "7px"
             button.textContent ="View Profile"
             listEle.classList.add('d-flex', 'flex-row-reverse')
