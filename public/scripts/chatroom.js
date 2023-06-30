@@ -238,7 +238,21 @@ const chatRoom = async () => {
             console.log(responseMessage)
             socket.emit("chat message", responseMessage, roomId);
           })
-          .catch((error) => console.error(error));
+          .catch((error) => {
+            console.error(error)
+            const responseMessage = {
+              text: "Sorry, the API seems to be down for now. Try it out later!",
+              senderId: "AI Assistant",
+              time_created: new Date(),
+              username: "AI Instructor",
+              backgroundColor: "#c4c4c4",
+              color: "#000000",
+              roomName,
+              id:1,
+            };
+            socket.emit("chat message", responseMessage, roomId);
+
+          });
       }
       socket.emit("chat message", message, roomId);
       input.value = "";
